@@ -118,12 +118,33 @@ build() {
 
         wget -t3 -P "$PACKAGE_DEB" "${url}${package}"
         copy_pkg_files_to_rocm ${API_NAME} ${API_NAME}
+        echo "Installing $PROJ_NAME" package
     else
-        echo "$DISTRO_ID is not supported..."
-        exit 2
+        if [ "$DISTRO_NAME" = debian ]; then
+           mkdir -p "$PACKAGE_DEB"
+           local rocm_ver=${ROCM_VERSION}
+           if [ ${ROCM_VERSION##*.} = 0 ]; then
+               rocm_ver=${ROCM_VERSION%.*}
+           fi
+           local url="https://repo.radeon.com/rocm/apt/${rocm_ver}/pool/main/h/${API_NAME}/"
+           local package
+	   # Let's dirtily take ubuntu 24.04 for debian
+           package=$(curl -s "$url" | grep -Po 'href="\K[^"]*' | grep "24.04" | head -n 1)
+   
+           if [ -z "$package" ]; then
+               echo "No package found for Ubuntu version $DISTRO_RELEASE"
+               exit 1
+           fi
+
+           wget -t3 -P "$PACKAGE_DEB" "${url}${package}"
+           copy_pkg_files_to_rocm ${API_NAME} ${API_NAME}
+           echo "Installing $PROJ_NAME" package
+        else
+             echo "$DISTRO_ID is not supported..."
+             exit 2
+        fi
     fi
 
-    echo "Installing $PROJ_NAME" package
 }
 
 print_output_directory() {

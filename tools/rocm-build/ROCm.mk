@@ -119,7 +119,7 @@ $(call adddep,rccl,rocm-core hip_on_rocclr rocr lightning hipcc rocm_smi_lib hip
 $(call adddep,rdc,rocm_smi_lib rocprofiler rocmvalidationsuite)
 $(call adddep,rocalution,rocblas rocsparse rocrand lightning hipcc)
 $(call adddep,rocblas,hip_on_rocclr openmp_extras lightning hipcc hipblaslt)
-$(call adddep,rocal,mivisionx)
+$(call adddep,rocal,rocdecode,mivisionx)
 $(call adddep,rocdecode,hip_on_rocclr lightning hipcc amdmigraphx)
 $(call adddep,rocfft,hip_on_rocclr rocrand hiprand lightning hipcc openmp_extras)
 $(call adddep,rocjpeg,hip_on_rocclr lightning hipcc rocm-dev)

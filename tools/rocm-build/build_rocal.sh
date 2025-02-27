@@ -18,21 +18,30 @@ build_rocal() {
 #    python3 ${COMPONENT_SRC}/rocAL-setup.py
     pushd /tmp
     # PyBind11
+    if [ ! -d /usr/share/doc/pybind11-dev ]
+    then
     git clone -b v2.11.1  https://github.com/pybind/pybind11
     cd pybind11 && mkdir build && cd build
     cmake -DDOWNLOAD_CATCH=ON -DDOWNLOAD_EIGEN=ON ../
     make -j$(nproc) && sudo make install
     cd ../..
+    fi
     # Turbo JPEG
+    if [ ! -d /usr/share/doc/libjpeg-turbo ]
+    then
     git clone -b 3.0.2 https://github.com/libjpeg-turbo/libjpeg-turbo.git
     cd libjpeg-turbo && mkdir build && cd build
     cmake -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=RELEASE -DENABLE_STATIC=FALSE -DCMAKE_INSTALL_DEFAULT_LIBDIR=lib -DWITH_JPEG8=TRUE ..
     make -j$(nproc) && sudo make install
     cd ../..
+    fi
     # RapidJSON
+    #if [ ! -d /usr/share/doc/rapidjson-dev ]
+    #then
     git clone https://github.com/Tencent/rapidjson.git
     cd rapidjson && mkdir build && cd build
     cmake .. && make -j$(nproc) && sudo make install
+    #fi
     popd
 
     mkdir -p $BUILD_DIR && cd $BUILD_DIR
@@ -52,7 +61,7 @@ build_rocal() {
 
 clean_rocal() {
     echo "Cleaning rocAL build directory: ${BUILD_DIR} ${PACKAGE_DIR}"
-    rm -rf "$BUILD_DIR" "$PACKAGE_DIR"
+    rm -rf "$BUILD_DIR" "$PACKAGE_DIR" /tmp/pybind11 /tmp/libjpeg-turbo /tmp/rapidjson
     echo "Done!"
 }
 

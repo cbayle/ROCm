@@ -34,6 +34,7 @@ build_hipblaslt() {
     init_rocm_common_cmake_params
     CXX=$(set_build_variables CXX)\
     cmake \
+        -D__HIP_PLATFORM_AMD__=1 \
         -DAMDGPU_TARGETS=${GPU_TARGETS} \
         ${LAUNCHER_FLAGS} \
         "${rocm_math_common_cmake_params[@]}" \

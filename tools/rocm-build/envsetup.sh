@@ -44,6 +44,7 @@ export DISTRO_ID=$ID-$VERSION_ID
 
 case "${DISTRO_NAME}" in
     ("ubuntu") export CPACKGEN=DEB PACKAGEEXT=deb PKGTYPE=deb ROCM_PKGTYPE=DEB ;;
+    ("debian") export CPACKGEN=DEB PACKAGEEXT=deb PKGTYPE=deb ROCM_PKGTYPE=DEB ;;
     ("centos") export CPACKGEN=RPM PACKAGEEXT=rpm PKGTYPE=rpm ;;
     ("sles") export CPACKGEN=RPM PACKAGEEXT=rpm PKGTYPE=rpm ;;
     ("rhel") export CPACKGEN=RPM PACKAGEEXT=rpm PKGTYPE=rpm ;;
@@ -187,5 +188,5 @@ export LANG=C.UTF-8
 export PROC=${PROC:-"$(nproc)"}
 export RELEASE_FLAG=${RELEASE_FLAG:-"-r"}
 export SUDO=sudo
-export PATH=/usr/local/bin:${PATH}:/sbin:/bin
+export PATH=/usr/lib/ccache:/usr/local/bin:${PATH}:/sbin:/bin
 export CCACHE_DIR=${HOME}/.ccache

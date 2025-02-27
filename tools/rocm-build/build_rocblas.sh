@@ -25,7 +25,12 @@ build_rocblas() {
 
     cd $COMPONENT_SRC
 
-    mkdir -p $DEPS_DIR && cp -r /usr/blis $DEPS_DIR
+    if [ -d /usr/blis ]
+    then
+        mkdir -p $DEPS_DIR && cp -r /usr/blis $DEPS_DIR
+    else
+	mkdir -p $DEPS_DIR
+    fi
     mkdir -p "$BUILD_DIR" && cd "$BUILD_DIR"
 
     if [ -n "$GPU_ARCHS" ]; then

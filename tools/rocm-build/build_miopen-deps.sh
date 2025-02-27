@@ -55,7 +55,7 @@ build_miopen_deps() {
     MLIR_COMMIT="$(awk '/rocMLIR/ {split($1, s, "@"); print s[2]}' requirements.txt)"
 
 
-    pip3 install https://github.com/RadeonOpenCompute/rbuild/archive/master.tar.gz
+    pip3 install --break-system-packages https://github.com/RadeonOpenCompute/rbuild/archive/master.tar.gz
     PATH="${PATH}:${ROCM_PATH}:${HOME}/.local/bin" rbuild prepare -d "$HOME/miopen-deps" --cxx=${ROCM_PATH}/llvm/bin/clang++ --cc ${ROCM_PATH}/llvm/bin/clang
     build_miopen_mlir "$MLIR_COMMIT"
 

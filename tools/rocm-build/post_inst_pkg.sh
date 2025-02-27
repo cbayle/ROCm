@@ -42,7 +42,17 @@ get_os_name() {
 set_pkg_type() {
     local os_name
     os_name=$(grep -oP '^NAME="\K.*(?=")' < /etc/os-release)
-    [ "${os_name,,}" = ubuntu ] && echo "deb" || echo "rpm"
+    case "${os_name,,}" in 
+          ubuntu*)
+                echo "deb"
+                ;;
+          debian*)
+                echo "deb"
+                ;;
+          *)
+                echo "rpm"
+                ;;
+    esac
 }
 
 setup_rocm_compilers_hash_file() {

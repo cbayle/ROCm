@@ -156,6 +156,9 @@ build_rocprofiler_systems() {
 
     ELFUTIL_URL="https://compute-artifactory.amd.com/artifactory/rocm-generic-local/dev-tools/omnitrace/elfutils-0.188.tar.bz2"
     BINUTIL_URL="https://compute-artifactory.amd.com/artifactory/rocm-generic-local/dev-tools/omnitrace/binutils-2.40.tar.gz"
+    # Previous are not available but don't seem to be a problem, just in case they can be found there:
+    #ELFUTIL_URL="https://gcc.gnu.org/pub/elfutils/0.188/elfutils-0.188.tar.bz2"
+    #BINUTIL_URL="https://gcc.gnu.org/pub/binutils/releases/binutils-2.40.tar.gz"
 
     echo "ROCm CMake Params: $(rocm_cmake_params)"
     echo "ROCm Common CMake Params: $(rocm_common_cmake_params)"

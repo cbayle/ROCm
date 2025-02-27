@@ -574,7 +574,6 @@ package_openmp_extras_asan_rpm() {
 }
 
 package_openmp_extras() {
-    local DISTRO_NAME=$(cat /etc/os-release | grep -e ^NAME=)
     local installPath="$ROCM_INSTALL_PATH/lib/llvm"
     local copyPath="$ROCM_INSTALL_PATH"
     local packageDir="$BUILD_PATH/package"
@@ -583,7 +582,7 @@ package_openmp_extras() {
     local rpmNames="openmp-extras-runtime openmp-extras-devel"
     if [ "$SANITIZER" == "1" ]; then
       local asanPkgName="openmp-extras-asan"
-      if [[ $DISTRO_NAME =~ "Ubuntu" ]]; then
+      if [[ $PKGTYPE =~ "deb" ]]; then
         package_openmp_extras_asan_deb $asanPkgName
       else
         package_openmp_extras_asan_rpm $asanPkgName
@@ -591,7 +590,7 @@ package_openmp_extras() {
       return 0
     fi
 
-    if [[ $DISTRO_NAME =~ "Ubuntu" ]]; then
+    if [[ $PKGTYPE =~ "deb" ]]; then
       for name in $debNames; do
         package_openmp_extras_deb $name
       done
@@ -697,8 +696,7 @@ package_tests_rpm(){
 }
 
 package_tests() {
-    local DISTRO_NAME=$(cat /etc/os-release | grep -e ^NAME=)
-    if [[ $DISTRO_NAME =~ "Ubuntu" ]]; then
+    if [[ $PKGTYPE =~ "deb" ]]; then
         package_tests_deb
     else
         package_tests_rpm

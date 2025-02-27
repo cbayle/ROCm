@@ -150,6 +150,11 @@ build_miopen_ckProf() {
 clean_miopen_ck() {
     echo "Cleaning MIOpen-CK build directory: ${BUILD_DIR} ${PACKAGE_DIR}"
     rm -rf "$BUILD_DIR" "$PACKAGE_DIR"
+    (cd $COMPONENT_SRC ; rm -f	CMakeCache.txt CPackConfig.cmake CPackSourceConfig.cmake DartConfiguration.tcl composable_kernelConfig.cmake composable_kernelConfigVersion.cmake cppcheck-supressions cppcheck.cmake include/ck/config.h include/ck/version.h library/src/tensor_operation_instance/gpu/mha/bias.hpp library/src/tensor_operation_instance/gpu/mha/blob_list.txt library/src/tensor_operation_instance/gpu/mha/fmha_bwd.hpp library/src/tensor_operation_instance/gpu/mha/fmha_fwd.hpp library/src/tensor_operation_instance/gpu/mha/mask.hpp library/src/tensor_operation_instance/gpu/mha/rotary.hpp library/src/tensor_operation_instance/gpu/mha/utils.hpp)
+    rm -rf $COMPONENT_SRC/CMakeFiles $COMPONENT_SRC/debian
+    find $COMPONENT_SRC -type d -empty -exec rmdir {} \; || true
+    find $COMPONENT_SRC -type d -empty -exec rmdir {} \; || true
+    find $COMPONENT_SRC -type d -empty -exec rmdir {} \; || true
     echo "Done!"
 }
 
